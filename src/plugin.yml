@@ -1,5 +1,5 @@
 name: Deathmoney
-version: 0.1
+version: 0.2
 author: huangwang
 main: com.imyvm.spigot.plugin.main.PluginMain
 depend: [Vault]
