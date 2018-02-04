@@ -1,4 +1,14 @@
 name: Deathmoney
-version: 0.2
+version: 0.3
 main: com.imyvm.spigot.plugin.main.PluginMain
 depend: [Vault, NyaaCore]
+
+commands:
+  custom:
+    description: All commands
+    aliases: [cm, c]
+permissions:
+  custom.*:
+    children:
+      custom.add: true
+      custom.revoke: true

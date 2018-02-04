@@ -2,6 +2,7 @@ package com.imyvm.spigot.plugin.main;
 
 import cat.nyaa.nyaacore.configuration.PluginConfigure;
 import cat.nyaa.nyaacore.configuration.ISerializable;
+import com.imyvm.spigot.plugin.main.Customjoinandleave.MessageConfig;
 import com.imyvm.spigot.plugin.main.lootprotect.LootProtectMode;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,7 +14,13 @@ import static com.imyvm.spigot.plugin.main.lootprotect.LootProtectMode.OFF;
 public class Configuration extends PluginConfigure {
     @Serializable
     public String language = "en_US";
-    /* Enchantment Configurations */
+
+
+    @Serializable(name = "getmoneyuuid")
+    public String getmoneyuuid = "db417445-39cd-4b2e-8c58-0e8d7b2f864a";
+    @Serializable(name = "getdeathmoneyuuid")
+    public String getdeathmoneyuuid = "a641c611-21ef-4b71-b327-e45ef8fdf647";
+
     /* Loot Protect */
     @Serializable
     public LootProtectMode lootProtectMode = OFF;
@@ -42,6 +49,22 @@ public class Configuration extends PluginConfigure {
     @Serializable(name = "KeepInventory")
     public boolean KeepInventory = true;
 
+    /*CustomMessage*/
+    @Serializable(name = "messageprice")
+    public double messageprice = 100;
+    @Serializable(name = "addcommandsmessage")
+    public String addcommandsmessage = "添加自定义消息";
+    @Serializable(name = "revokecommandsmessage")
+    public String revokecommandsmessage = "删除自定义消息";
+    @Serializable(name = "setupsuccess")
+    public String setupsuccess = "设置成功，花费 ";
+    @Serializable(name = "setupnomoney")
+    public String setupnomoney = "设置失败，余额不足 ";
+    @Serializable(name = "revokesuccess")
+    public String revokesuccess = "移除成功";
+    @Serializable(name = "revokefail")
+    public String revokefail = "移除失败";
+
     private final PluginMain plugin;
 
     @Override
@@ -49,8 +72,12 @@ public class Configuration extends PluginConfigure {
         return plugin;
     }
 
+    @StandaloneConfig
+    public MessageConfig MessageConfig;
+
     public Configuration(PluginMain plugin) {
         this.plugin = plugin;
+        this.MessageConfig = new MessageConfig(plugin);
     }
 
     @Override

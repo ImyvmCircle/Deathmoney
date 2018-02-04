@@ -1,5 +1,7 @@
 package com.imyvm.spigot.plugin.main;
 
+import com.imyvm.spigot.plugin.main.Customjoinandleave.Commands;
+import com.imyvm.spigot.plugin.main.Customjoinandleave.JoinLeaveListenner;
 import com.imyvm.spigot.plugin.main.deathprotect.deathloss;
 import com.imyvm.spigot.plugin.main.lootprotect.LootProtectListener;
 
@@ -9,6 +11,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Logger;
+
 public class PluginMain extends JavaPlugin {
     public static PluginMain instance;
     public I18n i18n;
@@ -16,6 +20,8 @@ public class PluginMain extends JavaPlugin {
     public Configuration cfg;
     public LootProtectListener lpListener;
     public deathloss dloss;
+    public Commands commands;
+    public JoinLeaveListenner joinLeaveListenner;
 
 
     @Override
@@ -33,6 +39,9 @@ public class PluginMain extends JavaPlugin {
         i18n = new I18n(this, cfg.language);
         lpListener = new LootProtectListener(this);
         dloss = new deathloss(this);
+        commands = new Commands(this);
+        getCommand("cm").setExecutor(commands);
+        joinLeaveListenner = new JoinLeaveListenner(this);
 
         RegisteredServiceProvider<Economy> economyP = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyP != null)
