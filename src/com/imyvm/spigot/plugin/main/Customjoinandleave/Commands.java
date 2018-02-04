@@ -47,12 +47,13 @@ public class Commands implements CommandExecutor {
                                 plugin.cfg.MessageConfig.MessageDataList.put(player.getUniqueId(),
                                         new MessageData(player.getUniqueId(), player, args[1], args[2]));
                                 plugin.cfg.MessageConfig.save();
-                                sender.sendMessage(ChatColor.BLUE +"Setup Success");
                                 if (!(player.isOp())){
                                     econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)),totalprice);
                                     econ.withdrawPlayer(player, totalprice);
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.cfg.setupsuccess)+
                                             econ.format(totalprice)+ChatColor.translateAlternateColorCodes('&',plugin.cfg.Curname));
+                                }else {
+                                    sender.sendMessage(ChatColor.BLUE +"Setup Success");
                                 }
                             }else {
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.cfg.setupnomoney)+
