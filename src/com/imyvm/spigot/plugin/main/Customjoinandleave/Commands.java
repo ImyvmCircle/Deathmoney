@@ -44,16 +44,21 @@ public class Commands implements CommandExecutor {
                             double displayAmount = args[1].length()+args[2].length();
                             double totalprice = plugin.cfg.messageprice*displayAmount;
                             if (econ.has(player, totalprice) || player.isOp()){
-                                plugin.cfg.MessageConfig.MessageDataList.put(player.getUniqueId(),
-                                        new MessageData(player.getUniqueId(), player, args[1], args[2]));
-                                plugin.cfg.MessageConfig.save();
-                                if (!(player.isOp())){
-                                    econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)),totalprice);
-                                    econ.withdrawPlayer(player, totalprice);
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.cfg.setupsuccess)+
-                                            econ.format(totalprice)+ChatColor.translateAlternateColorCodes('&',plugin.cfg.Curname));
+                                if (args[1].contains("&k") || args[1].contains("&m") || args[1].contains("&n")||
+                                        args[2].contains("&k") || args[2].contains("&m") || args[2].contains("&n")){
+                                    sender.sendMessage(ChatColor.RED + "Including Invaild Symbol: &k, &m, &n");
                                 }else {
-                                    sender.sendMessage(ChatColor.BLUE +"Setup Success");
+                                    plugin.cfg.MessageConfig.MessageDataList.put(player.getUniqueId(),
+                                            new MessageData(player.getUniqueId(), player, args[1], args[2]));
+                                    plugin.cfg.MessageConfig.save();
+                                    if (!(player.isOp())){
+                                        econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)),totalprice);
+                                        econ.withdrawPlayer(player, totalprice);
+                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.cfg.setupsuccess)+
+                                                econ.format(totalprice)+ChatColor.translateAlternateColorCodes('&',plugin.cfg.Curname));
+                                    }else {
+                                        sender.sendMessage(ChatColor.BLUE +"Setup Success");
+                                    }
                                 }
                             }else {
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.cfg.setupnomoney)+
