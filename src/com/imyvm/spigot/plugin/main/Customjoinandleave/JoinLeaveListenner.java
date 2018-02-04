@@ -24,7 +24,7 @@ public class JoinLeaveListenner implements Listener{
             event.setJoinMessage(ChatColor.translateAlternateColorCodes('&',
                     plugin.cfg.MessageConfig.MessageDataList.get(player.getUniqueId()).join.replace("{player}", player.getDisplayName())));
         }else {
-            event.setJoinMessage(player.getDisplayName()+"加入了");
+            event.setJoinMessage(player.getDisplayName()+" joined the game");
         }
     }
 
@@ -35,7 +35,7 @@ public class JoinLeaveListenner implements Listener{
             event1.setQuitMessage(ChatColor.translateAlternateColorCodes('&',
                     plugin.cfg.MessageConfig.MessageDataList.get(player.getUniqueId()).leave.replace("{player}", player.getDisplayName())));
         } else {
-            event1.setQuitMessage(player.getDisplayName() + "退出了");
+            event1.setQuitMessage(player.getDisplayName() + " left the game");
         }
     }
 }
