@@ -15,7 +15,7 @@ import static think.rpgitems.item.RPGItem.getMetadata;
 import static think.rpgitems.item.RPGItem.updateItem;
 
 public class Takecurrency implements CommandExecutor {
-    PluginMain plugin;
+    public PluginMain plugin;
 
     public Takecurrency(PluginMain pl) {
         plugin = pl;
