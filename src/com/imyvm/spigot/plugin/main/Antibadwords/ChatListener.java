@@ -20,7 +20,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-        List<String> words = plugin.cfg.badwords;
+        List<String> words = plugin.cfg.wordconfig.badwords;
 
         for (String cens: words) {
             String message = event.getMessage();
