@@ -36,7 +36,6 @@ public class ChatListener implements Listener {
     private String replaceAll3(String input, String regex, String replacement) {
         Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(input);
-        String result = m.replaceAll(replacement);
-        return result;
+        return m.replaceAll(replacement);
     }
 }
