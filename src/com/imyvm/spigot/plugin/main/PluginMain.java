@@ -1,7 +1,10 @@
 package com.imyvm.spigot.plugin.main;
 
+import com.imyvm.spigot.plugin.main.Antibadwords.ChatListener;
+import com.imyvm.spigot.plugin.main.Currencychecker.Takecurrency;
 import com.imyvm.spigot.plugin.main.Customjoinandleave.Commands;
 import com.imyvm.spigot.plugin.main.Customjoinandleave.JoinLeaveListenner;
+import com.imyvm.spigot.plugin.main.ImyvmCommand.ImyvmCommand;
 import com.imyvm.spigot.plugin.main.deathprotect.deathloss;
 import com.imyvm.spigot.plugin.main.lootprotect.LootProtectListener;
 
@@ -10,8 +13,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.logging.Logger;
 
 public class PluginMain extends JavaPlugin {
     public static PluginMain instance;
@@ -22,6 +23,9 @@ public class PluginMain extends JavaPlugin {
     public deathloss dloss;
     public Commands commands;
     public JoinLeaveListenner joinLeaveListenner;
+    public Takecurrency takecurrency;
+    public ChatListener chatListener;
+    public ImyvmCommand imyvmCommand;
 
 
     @Override
@@ -42,6 +46,11 @@ public class PluginMain extends JavaPlugin {
         commands = new Commands(this);
         getCommand("cm").setExecutor(commands);
         joinLeaveListenner = new JoinLeaveListenner(this);
+        takecurrency = new Takecurrency(this);
+        getCommand("ch").setExecutor(takecurrency);
+        chatListener = new ChatListener(this);
+        imyvmCommand = new ImyvmCommand(this);
+        getCommand("imc").setExecutor(imyvmCommand);
 
         RegisteredServiceProvider<Economy> economyP = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyP != null)

@@ -19,7 +19,7 @@ public class MessageConfig extends FileConfigure {
 //    public int pos = 0;
 
 
-    private PluginMain plugin;
+    public PluginMain plugin;
 
     public MessageConfig(PluginMain pl) {
         this.plugin = pl;

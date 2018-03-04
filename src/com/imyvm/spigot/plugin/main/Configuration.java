@@ -2,7 +2,9 @@ package com.imyvm.spigot.plugin.main;
 
 import cat.nyaa.nyaacore.configuration.PluginConfigure;
 import cat.nyaa.nyaacore.configuration.ISerializable;
+import com.imyvm.spigot.plugin.main.Antibadwords.Wordconfig;
 import com.imyvm.spigot.plugin.main.Customjoinandleave.MessageConfig;
+import com.imyvm.spigot.plugin.main.ImyvmCommand.ImyvmConfig;
 import com.imyvm.spigot.plugin.main.lootprotect.LootProtectMode;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -65,6 +67,12 @@ public class Configuration extends PluginConfigure {
     @Serializable(name = "revokefail")
     public String revokefail = "移除失败";
 
+    /*Anti-BadWords*/
+    @Serializable(name = "replacement", alias = "replacement")
+    public String replacement = "***";
+
+
+
     private final PluginMain plugin;
 
     @Override
@@ -75,9 +83,17 @@ public class Configuration extends PluginConfigure {
     @StandaloneConfig
     public MessageConfig MessageConfig;
 
+    @StandaloneConfig
+    public Wordconfig wordconfig;
+
+    @StandaloneConfig
+    public ImyvmConfig imyvmConfig;
+
     public Configuration(PluginMain plugin) {
         this.plugin = plugin;
         this.MessageConfig = new MessageConfig(plugin);
+        this.wordconfig = new Wordconfig(plugin);
+        this.imyvmConfig = new ImyvmConfig(plugin);
     }
 
     @Override
