@@ -42,6 +42,11 @@ public class deathloss implements Listener {
         String curname = ChatColor.translateAlternateColorCodes('&', config.getString("Curname"));
         if (config.getBoolean("Enabled")) {
             if (config.getStringList("EnabledWorld").contains(w)) {
+                if (player.hasPermission("deathmoney.bypass")){
+                    keep(event,player,config.getBoolean("KeepInventory"),config.getBoolean("KeepExp"),
+                            config.getBoolean("ANISHING_CURSE"));
+                    return;
+                }
                 if (econ.has(player, config.getDouble("minloss"))) {
                     double loss = s * config.getDouble("losspercent") / 100. + config.getDouble(("minloss"));
                     if (econ.has(player, loss)) {

@@ -1,27 +1,14 @@
 name: Deathmoney
-version: 0.5
+version: 0.3
 main: com.imyvm.spigot.plugin.main.PluginMain
-depend: [Vault, NyaaCore, RPGItems]
+depend: [Vault]
 
 commands:
-  custom:
-    description: All commands
-    aliases: [cm, c]
-  checker:
-    description: rpg
-    aliases: ch
-  imyvmcommand:
-    description: design for imyvm policeman or policewoman
-    aliases: [imc, imyvm]
+  deathmoney:
+    description: /deathmoney reload
+    aliases: []
 permissions:
-  custom.*:
+  deathmoney.*:
     children:
-      custom.add: true
-      custom.revoke: true
-  checker.*:
-    childeren:
-      checker.take: true
-  imyvm.command.*:
-    childeren:
-      policeimyvm.add: true
-      policeimyvm.remove: true
+      deathmoney.reload: true
+      deathmoney.bypass: true
