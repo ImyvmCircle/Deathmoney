@@ -73,6 +73,10 @@ public class deathloss implements Listener {
     private void keep(PlayerDeathEvent event, Player player, Boolean keepinventory, Boolean keepexp, Boolean anishing_curse){
         event.setKeepInventory(keepinventory);
         event.setKeepLevel(keepexp);
+        int exp = 0;
+        if (keepexp){
+            event.setDroppedExp(exp);
+        }
         if (anishing_curse) {
             int j;
             ItemStack itemStack1 = new ItemStack(Material.AIR);
