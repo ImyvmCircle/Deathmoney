@@ -1,7 +1,6 @@
 package com.imyvm.spigot.plugin.main.deathprotect;
 
 import com.imyvm.spigot.plugin.main.PluginMain;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -52,13 +51,13 @@ public class deathloss implements Listener {
                         //double lossdouble = s;
                         String loss = df.format(s);
                         econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getdeathmoneyuuid)),s);
-                        EconomyResponse t = econ.withdrawPlayer(player, s);
+                        econ.withdrawPlayer(player, s);
                         player.sendMessage(chargemessage + loss + curname);
                     } else {
                         double d = min(dd, plugin.cfg.maxloss);
                         String loss = df.format(d);
                         econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getdeathmoneyuuid)),d);
-                        EconomyResponse t = econ.withdrawPlayer(player, d);
+                        econ.withdrawPlayer(player, d);
                         player.sendMessage(chargemessage + loss + curname);
                     }
                 } else {

@@ -4,32 +4,19 @@ import cat.nyaa.nyaacore.configuration.PluginConfigure;
 import cat.nyaa.nyaacore.configuration.ISerializable;
 import com.imyvm.spigot.plugin.main.Antibadwords.Wordconfig;
 import com.imyvm.spigot.plugin.main.Customjoinandleave.MessageConfig;
-import com.imyvm.spigot.plugin.main.ImyvmCommand.ImyvmConfig;
-import com.imyvm.spigot.plugin.main.lootprotect.LootProtectMode;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
-import static com.imyvm.spigot.plugin.main.lootprotect.LootProtectMode.OFF;
-
 public class Configuration extends PluginConfigure {
     @Serializable
     public String language = "en_US";
-
 
     @Serializable(name = "getmoneyuuid")
     public String getmoneyuuid = "db417445-39cd-4b2e-8c58-0e8d7b2f864a";
     @Serializable(name = "getdeathmoneyuuid")
     public String getdeathmoneyuuid = "a641c611-21ef-4b71-b327-e45ef8fdf647";
-
-    /* Loot Protect */
-    @Serializable
-    public LootProtectMode lootProtectMode = OFF;
-    @Serializable(name = "bypassVanilla")
-    public boolean bypassVanilla = true;
-    @Serializable(name = "Exp")
-    public boolean Exp = true;
 
     /* Death Money */
     @Serializable(name = "deathloss.enable_worlds", alias = "deathloss_enabled_world")
@@ -86,14 +73,11 @@ public class Configuration extends PluginConfigure {
     @StandaloneConfig
     public Wordconfig wordconfig;
 
-    @StandaloneConfig
-    public ImyvmConfig imyvmConfig;
 
     public Configuration(PluginMain plugin) {
         this.plugin = plugin;
         this.MessageConfig = new MessageConfig(plugin);
         this.wordconfig = new Wordconfig(plugin);
-        this.imyvmConfig = new ImyvmConfig(plugin);
     }
 
     @Override
