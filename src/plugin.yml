@@ -21,7 +21,6 @@ permissions:
   checker.*:
     childeren:
       checker.take: true
-  imyvm.command.*:
+  ic.command.*:
     childeren:
-      policeimyvm.add: true
-      policeimyvm.remove: true
+      ic.command.tp: true
