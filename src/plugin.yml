@@ -1,8 +1,10 @@
 name: Deathmoney
 version: 0.5
 main: com.imyvm.spigot.plugin.main.PluginMain
-depend: [Vault, NyaaCore, RPGItems]
-
+depend: [Vault, NyaaCore]
+softdepend:
+- RPGItems
+api-version: 1.13
 commands:
   custom:
     description: All commands

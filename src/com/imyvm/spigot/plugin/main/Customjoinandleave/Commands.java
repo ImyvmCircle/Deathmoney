@@ -62,7 +62,7 @@ public class Commands implements CommandExecutor {
                                 }
                             }else {
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&',plugin.cfg.setupnomoney)+
-                                        econ.format(totalprice)+ChatColor.translateAlternateColorCodes('&',plugin.cfg.Curname));
+                                        econ.format(totalprice));
                             }
                         } else {
                             sender.sendMessage(ChatColor.RED + "You must be a player to do that!");

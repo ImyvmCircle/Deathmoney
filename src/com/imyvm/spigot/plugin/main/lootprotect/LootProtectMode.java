@@ -1,7 +1,7 @@
 package com.imyvm.spigot.plugin.main.lootprotect;
 
-import org.librazy.nyaautils_lang_checker.LangKey;
-import org.librazy.nyaautils_lang_checker.LangKeyType;
+import org.librazy.nclangchecker.LangKey;
+import org.librazy.nclangchecker.LangKeyType;
 
 @LangKey(type = LangKeyType.SUFFIX)
 public enum LootProtectMode {

@@ -28,8 +28,6 @@ public class Configuration extends PluginConfigure {
     public LootProtectMode lootProtectMode = OFF;
     @Serializable(name = "bypassVanilla")
     public boolean bypassVanilla = true;
-    @Serializable(name = "Exp")
-    public boolean Exp = true;
 
     /* Death Money */
     @Serializable(name = "deathloss.enable_worlds", alias = "deathloss_enabled_world")

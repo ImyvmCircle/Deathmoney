@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import think.rpgitems.data.RPGMetadata;
+import think.rpgitems.item.ItemManager;
+import think.rpgitems.item.RPGItem;
 
 import static com.imyvm.spigot.plugin.main.PluginMain.econ;
 import static think.rpgitems.item.RPGItem.getMetadata;
@@ -22,6 +24,8 @@ public class Takecurrency implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmdObj, String label, String[] args) {
+        if (!(plugin.getServer().getPluginManager().isPluginEnabled("RPGItems")))
+            return false;
         if (args.length == 0) {
             sender.sendMessage(ChatColor.RED + "That is not a valid command!");
         } else {
@@ -45,8 +49,9 @@ public class Takecurrency implements CommandExecutor {
                             ItemStack item = player.getInventory().getItemInMainHand();
                             int durability = Integer.parseInt(repair);
                             RPGMetadata meta = getMetadata(item);
+                            RPGItem rpgItem = ItemManager.toRPGItem(item);
                             meta.put(RPGMetadata.DURABILITY, durability);
-                            updateItem(item, meta);
+                            updateItem(rpgItem, item, meta);
                         } else {
                             sender.sendMessage(ChatColor.RED + "没钱请不要氪金!");
                         }

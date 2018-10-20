@@ -1,9 +1,6 @@
 package com.imyvm.spigot.plugin.main.ImyvmCommand;
 
-import cat.nyaa.nyaacore.Message;
 import com.imyvm.spigot.plugin.main.PluginMain;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
