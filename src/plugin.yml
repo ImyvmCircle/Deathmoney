@@ -1,7 +1,8 @@
 name: Deathmoney
-version: 0.3
+version: 0.4
 main: com.imyvm.spigot.plugin.main.PluginMain
 depend: [Vault]
+api-version: 1.13
 
 commands:
   deathmoney:
