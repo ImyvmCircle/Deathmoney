@@ -35,7 +35,8 @@ public class deathloss implements Listener {
         World world = player.getWorld();
         String w = world.getName();
         FileConfiguration config = plugin.getConfig();
-        DecimalFormat df = new DecimalFormat( "0.00 ");
+        String decimaformat = config.getString("MoneyFormat");
+        DecimalFormat df = new DecimalFormat( decimaformat);
         String chargemessage = ChatColor.translateAlternateColorCodes('&', config.getString("chargemessage"));
         String nomoneymessage = ChatColor.translateAlternateColorCodes('&', config.getString("nomoneymessage"));
         String worldmessage = ChatColor.translateAlternateColorCodes('&', config.getString("disablemessage"));

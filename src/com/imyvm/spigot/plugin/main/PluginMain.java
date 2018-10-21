@@ -36,6 +36,7 @@ public class PluginMain extends JavaPlugin implements CommandExecutor{
         config.addDefault("minloss", 30);
         config.addDefault("maxloss", 10000);
         config.addDefault("losspercent", 8);
+        config.addDefault("MoneyFormat", "#,###,##0.00");
         config.addDefault("chargemessage", "You Charged");
         config.addDefault("Curname","dollars");
         config.addDefault("disablemessage", "Keepinventory is disabled in this world");
