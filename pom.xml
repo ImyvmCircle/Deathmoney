@@ -3,21 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- The Basics -->
     <groupId>com.imyvm.Deathmoney</groupId>
     <artifactId>Deathmoney</artifactId>
     <version>0.1-SNAPSHOT</version>
-
-    <repositories>
-        <repository>
-            <id>vault-repo</id>
-            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
-        </repository>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <!--Vault-->
         <dependency>
@@ -42,7 +32,24 @@
         </dependency>
     </dependencies>
 
+    <!-- Build Settings -->
     <build>
+        <directory>${project.basedir}/target</directory>
+        <outputDirectory>${project.build.directory}/classes</outputDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
         <defaultGoal>clean install</defaultGoal>
         <plugins>
             <plugin>
@@ -78,4 +85,46 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- More Project Information -->
+    <name>Deathmoney</name>
+    <description>loss money when death</description>
+    <url>https://github.com/ImyvmCircle/Deathmoney</url>
+    <inceptionYear>2017</inceptionYear>
+    <organization>
+        <name>Imyvm Minecraft Circle</name>
+        <url>https://imyvm.com</url>
+    </organization>
+
+    <!-- Environment Settings -->
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/ImyvmCircle/Deathmoney/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Travis</system>
+        <url>https://travis-ci.com/ImyvmCircle/Deathmoney</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnSuccess>false</sendOnSuccess>
+                <sendOnWarning>false</sendOnWarning>
+                <configuration><address>huangwang1003@gmail.com</address></configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+
+    <repositories>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
+        </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+
 </project>

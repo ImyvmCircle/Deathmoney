@@ -4,9 +4,22 @@ jdk:
 - oraclejdk8
 
 branches:
-  except:
-  - dev
-  - dev-future
+  only:
+  - master
 
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true
 script: mvn package
+
+before_deploy:
+# Set up git user name and tag this commit
+- git config --local user.name "Travis CI"
+- git config --local user.email "builds@travis-ci.com"
+- git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+deploy:
+  provider: releases
+  prerelease: $GITHUB_DEPLOY_PRERELEASE
+  api_key: $GITHUB_KEY
+  file: 'target/Deathmoney-$VERSION_STRING.jar'
+  skip_cleanup: true
+  on:
+    tags: true
