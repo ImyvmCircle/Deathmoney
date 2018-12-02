@@ -12,9 +12,11 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.imyvm.spigot.plugin.main.PluginMain.econ;
 import static org.apache.commons.lang.StringUtils.isBlank;
 
 public class ImyvmCommand implements CommandExecutor{
@@ -199,10 +201,45 @@ public class ImyvmCommand implements CommandExecutor{
                         ChatColor.translateAlternateColorCodes('&',"&b执行传送"));
             }
             return true;
-        }
-        else {
+        } else if ((args[1].equalsIgnoreCase("fly") || args[1].equalsIgnoreCase
+                ("tp")) && sender.hasPermission("ic.command.fly")) {
+            if (!(sender instanceof Player)) {
+                return false;
+            }
+            Player player = (Player) sender;
+            if (!(plugin.cfg.deathloss_enable_world.contains(player.getWorld().getName()))) {
+                player.sendMessage(ChatColor.RED + "当前世界不支持飞行");
+                return false;
+            }
+            if (args.length == 2) {
+                if (args[0].equals("onetimefly")) {
+                    if (player.getAllowFlight()) {
+                        player.sendMessage(ChatColor.AQUA + "你已经在飞行中！");
+                        return false;
+                    } else if (econ.has(player, plugin.cfg.onetimefly)) {
+                        player.setAllowFlight(true);
+                        econ.withdrawPlayer(player, plugin.cfg.onetimefly);
+                        player.sendMessage(ChatColor.AQUA + "你已成功购买一次性飞行，花费 " +
+                                plugin.cfg.onetimefly + " " + ChatColor.YELLOW + plugin.cfg.Curname);
+                        econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)),
+                                plugin.cfg.onetimefly);
+                        return true;
+                    } else {
+                        player.sendMessage(ChatColor.RED + "钱不够啊大哥大姐");
+                        return false;
+                    }
+                } else {
+                    sender.sendMessage("指令集 [" + args[0] + "] 不存在");
+                    return false;
+                }
+            } else {
+                sender.sendMessage(ChatColor.GOLD + "/" + label + " onetimefly fly  -" +
+                        ChatColor.translateAlternateColorCodes('&', "&b购买飞行"));
+                return false;
+            }
+        } else {
             sender.sendMessage(ChatColor.RED +"That is not a valid command!");
-            return true;
+            return false;
         }
     }
 

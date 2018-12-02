@@ -1,7 +1,7 @@
 package com.imyvm.spigot.plugin.main;
 
-import cat.nyaa.nyaacore.configuration.PluginConfigure;
 import cat.nyaa.nyaacore.configuration.ISerializable;
+import cat.nyaa.nyaacore.configuration.PluginConfigure;
 import com.imyvm.spigot.plugin.main.Antibadwords.Wordconfig;
 import com.imyvm.spigot.plugin.main.Customjoinandleave.MessageConfig;
 import com.imyvm.spigot.plugin.main.ImyvmCommand.ImyvmConfig;
@@ -9,7 +9,9 @@ import com.imyvm.spigot.plugin.main.lootprotect.LootProtectMode;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.imyvm.spigot.plugin.main.lootprotect.LootProtectMode.OFF;
 
@@ -68,6 +70,10 @@ public class Configuration extends PluginConfigure {
     /*Anti-BadWords*/
     @Serializable(name = "replacement", alias = "replacement")
     public String replacement = "***";
+
+    /*One-Time Fly*/
+    @Serializable(name = "onetimefly", alias = "onetimefly")
+    public double onetimefly = 800;
 
 
 
