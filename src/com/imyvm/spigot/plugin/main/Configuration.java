@@ -75,6 +75,15 @@ public class Configuration extends PluginConfigure {
     @Serializable(name = "onetimefly", alias = "onetimefly")
     public double onetimefly = 800;
 
+    /*Essential Fee*/
+    @Serializable(name = "backfee", alias = "backfee")
+    public double backfee = 22;
+    @Serializable(name = "tpfee", alias = "tpfee")
+    public double tpfee = 11;
+    @Serializable(name = "sethomefee", alias = "sethomefee")
+    public double sethomefee = 100;
+    @Serializable(name = "homefee", alias = "homefee")
+    public double homefee = 11;
 
 
     private final PluginMain plugin;
