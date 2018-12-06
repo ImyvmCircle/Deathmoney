@@ -23,6 +23,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,7 +42,7 @@ public class Essentials implements Listener {
     }
 
     @EventHandler
-    public void onCommandPreProcess(PlayerCommandPreprocessEvent e) throws InvalidWorldException {
+    public void onCommandPreProcess(PlayerCommandPreprocessEvent e) {
         String cmd = e.getMessage().toLowerCase().trim();
         Player p = e.getPlayer();
         User iu = ess.getUser(p);
@@ -129,6 +130,9 @@ public class Essentials implements Listener {
             ItemStack item = new ItemStack(Material.GREEN_BED, 1);
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(a);
+            List<String> lore = new ArrayList<>();
+            lore.add("§b点击传送");
+            meta.setLore(lore);
             item.setItemMeta(meta);
             inv.addItem(item);
         }
@@ -145,6 +149,9 @@ public class Essentials implements Listener {
                 SkullMeta meta = (SkullMeta) item.getItemMeta();
                 meta.setDisplayName(name);
                 meta.setOwningPlayer(a);
+                List<String> lore = new ArrayList<>();
+                lore.add("§b点击发送请求");
+                meta.setLore(lore);
                 item.setItemMeta(meta);
                 inv.addItem(item);
             }
@@ -160,46 +167,74 @@ public class Essentials implements Listener {
             return;
         }
         Player p = (Player) event.getWhoClicked();
-        event.setCancelled(true);
         if (event.getInventory().getTitle().equalsIgnoreCase("§cTpa")) {
+            event.setCancelled(true);
+            p.closeInventory();
+            p.updateInventory();
             if (event.getCurrentItem() != null) {
                 //User sent = ess.getUser(p);    //sent
+                List<String> lore = new ArrayList<>();
+                lore.add("§b点击发送请求");
                 if (event.getCurrentItem().hasItemMeta()) {
-                    SkullMeta meta = (SkullMeta) event.getCurrentItem().getItemMeta();
-                    Player receiver = (Player) meta.getOwningPlayer();    //receive
-                    //User receive = ess.getUser(receiver);
-                    p.closeInventory();
-                    doTpa(p, receiver);
+                    if (event.getCurrentItem().getItemMeta().hasLore()) {
+                        if (!(event.getCurrentItem().getItemMeta().getLore().equals(lore))) {
+                            return;
+                        }
+                        SkullMeta meta = (SkullMeta) event.getCurrentItem().getItemMeta();
+                        Player receiver = (Player) meta.getOwningPlayer();    //receive
+                        //User receive = ess.getUser(receiver);
+                        doTpa(p, receiver);
+                    }
+
                 }
             }
         } else if (event.getInventory().getTitle().equalsIgnoreCase("§cTpahere")) {
+            event.setCancelled(true);
+            p.closeInventory();
+            p.updateInventory();
             if (event.getCurrentItem() != null) {
                 //User sent = ess.getUser(p);    //sent
+                List<String> lore = new ArrayList<>();
+                lore.add("§b点击发送请求");
                 if (event.getCurrentItem().hasItemMeta()) {
-                    SkullMeta meta = (SkullMeta) event.getCurrentItem().getItemMeta();
-                    Player receiver = (Player) meta.getOwningPlayer();    //receive
-                    //User receive = ess.getUser(receiver);
-                    p.closeInventory();
-                    doTpahere(p, receiver);
+                    if (event.getCurrentItem().getItemMeta().hasLore()) {
+                        if (!(event.getCurrentItem().getItemMeta().getLore().equals(lore))) {
+                            return;
+                        }
+                        SkullMeta meta = (SkullMeta) event.getCurrentItem().getItemMeta();
+                        Player receiver = (Player) meta.getOwningPlayer();    //receive
+                        //User receive = ess.getUser(receiver);
+                        doTpahere(p, receiver);
+                    }
+
                 }
             }
         } else if (event.getInventory().getTitle().equalsIgnoreCase("§cHomes")) {
+            event.setCancelled(true);
+            p.closeInventory();
+            p.updateInventory();
             if (event.getCurrentItem() != null) {
                 User sent = ess.getUser(p);    //sent
+                List<String> lore = new ArrayList<>();
+                lore.add("§b点击传送");
                 if (event.getCurrentItem().hasItemMeta()) {
-                    ItemMeta meta = event.getCurrentItem().getItemMeta();
-                    String home = meta.getDisplayName();
-                    Location homeLoc;
-                    try {
-                        homeLoc = sent.getHome(home);
-                    } catch (InvalidWorldException ex) {
-                        return;
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        return;
+                    if (event.getCurrentItem().getItemMeta().hasLore()) {
+                        if (!(event.getCurrentItem().getItemMeta().getLore().equals(lore))) {
+                            return;
+                        }
+                        ItemMeta meta = event.getCurrentItem().getItemMeta();
+                        String home = meta.getDisplayName();
+                        Location homeLoc;
+                        try {
+                            homeLoc = sent.getHome(home);
+                        } catch (InvalidWorldException ex) {
+                            return;
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            return;
+                        }
+                        doHome(p, sent, homeLoc);
                     }
-                    p.closeInventory();
-                    doHome(p, sent, homeLoc);
                 }
             }
         }
@@ -215,13 +250,13 @@ public class Essentials implements Listener {
         }
         receive.requestTeleport(sent, false);
         sent.sendMessage("§6请求已发送给 " + receive.getDisplayName());
-        JSONMessage.create("想要取消这个传送请求，请的点击")
+        JSONMessage.create("想要取消这个传送请求，请点击")
                 .color(ChatColor.GOLD)
                 .then("取消").color(ChatColor.RED).runCommand("/tpacancel")
                 .send(p);
         econ.withdrawPlayer(p, plugin.cfg.tpfee);
-        p.sendMessage("§a从你的账户中扣除了 " + plugin.cfg.tpfee + " §6D");
         econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), plugin.cfg.tpfee);
+        p.sendMessage("§a从你的账户中扣除了 " + plugin.cfg.tpfee + " §6D");
         JSONMessage.create(sent.getDisplayName())
                 .then(" 请求传送到你这里：").color(ChatColor.GOLD)
                 .newline().then("若想接受传送，请点击").color(ChatColor.GOLD)
@@ -240,13 +275,13 @@ public class Essentials implements Listener {
         }
         receive.requestTeleport(sent, true);
         sent.sendMessage("§6请求已发送给 " + receive.getDisplayName());
-        JSONMessage.create("想要取消这个传送请求，请的点击")
+        JSONMessage.create("想要取消这个传送请求，请点击")
                 .color(ChatColor.GOLD)
                 .then("取消").color(ChatColor.RED).runCommand("/tpacancel")
                 .send(p);
         econ.withdrawPlayer(p, plugin.cfg.tpfee);
-        p.sendMessage("§a从你的账户中扣除了 " + plugin.cfg.tpfee + " §6D");
         econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), plugin.cfg.tpfee);
+        p.sendMessage("§a从你的账户中扣除了 " + plugin.cfg.tpfee + " §6D");
         JSONMessage.create(sent.getDisplayName())
                 .then(" 请求传送到他那里：").color(ChatColor.GOLD)
                 .newline().then("若想接受传送，请点击").color(ChatColor.GOLD)
@@ -265,7 +300,7 @@ public class Essentials implements Listener {
         BigDecimal fee = new BigDecimal(dd);
         try {
             iu.getTeleport().teleport(homeLoc, new Trade(fee, ess), PlayerTeleportEvent.TeleportCause.PLUGIN);
-            econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), fee.doubleValue());
+            econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), dd);
         } catch (Exception e) {
             p.sendMessage(e.getMessage());
         }
@@ -289,8 +324,8 @@ public class Essentials implements Listener {
         }
         iu.setHome(name, curLoc);
         econ.withdrawPlayer(p, plugin.cfg.sethomefee);
-        p.sendMessage("§a从你的账户中扣除了 " + plugin.cfg.sethomefee + " §6D");
         econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), plugin.cfg.sethomefee);
+        p.sendMessage("§a从你的账户中扣除了 " + plugin.cfg.sethomefee + " §6D");
     }
 
     private void doBack(Player p, User iu, Location lastLoc) {
@@ -303,7 +338,7 @@ public class Essentials implements Listener {
         BigDecimal fee = new BigDecimal(dd);
         try {
             iu.getTeleport().back(new Trade(fee, ess));
-            econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), fee.doubleValue());
+            econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), dd);
         } catch (Exception e) {
             p.sendMessage(e.getMessage());
         }
