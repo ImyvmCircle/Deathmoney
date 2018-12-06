@@ -160,8 +160,8 @@ public class Essentials implements Listener {
             return;
         }
         Player p = (Player) event.getWhoClicked();
-        event.setCancelled(true);
         if (event.getInventory().getTitle().equalsIgnoreCase("§cTpa")) {
+            event.setCancelled(true);
             if (event.getCurrentItem() != null) {
                 //User sent = ess.getUser(p);    //sent
                 if (event.getCurrentItem().hasItemMeta()) {
@@ -173,6 +173,7 @@ public class Essentials implements Listener {
                 }
             }
         } else if (event.getInventory().getTitle().equalsIgnoreCase("§cTpahere")) {
+            event.setCancelled(true);
             if (event.getCurrentItem() != null) {
                 //User sent = ess.getUser(p);    //sent
                 if (event.getCurrentItem().hasItemMeta()) {
@@ -184,6 +185,7 @@ public class Essentials implements Listener {
                 }
             }
         } else if (event.getInventory().getTitle().equalsIgnoreCase("§cHomes")) {
+            event.setCancelled(true);
             if (event.getCurrentItem() != null) {
                 User sent = ess.getUser(p);    //sent
                 if (event.getCurrentItem().hasItemMeta()) {
@@ -215,7 +217,7 @@ public class Essentials implements Listener {
         }
         receive.requestTeleport(sent, false);
         sent.sendMessage("§6请求已发送给 " + receive.getDisplayName());
-        JSONMessage.create("想要取消这个传送请求，请的点击")
+        JSONMessage.create("想要取消这个传送请求，请点击")
                 .color(ChatColor.GOLD)
                 .then("取消").color(ChatColor.RED).runCommand("/tpacancel")
                 .send(p);
@@ -240,7 +242,7 @@ public class Essentials implements Listener {
         }
         receive.requestTeleport(sent, true);
         sent.sendMessage("§6请求已发送给 " + receive.getDisplayName());
-        JSONMessage.create("想要取消这个传送请求，请的点击")
+        JSONMessage.create("想要取消这个传送请求，请点击")
                 .color(ChatColor.GOLD)
                 .then("取消").color(ChatColor.RED).runCommand("/tpacancel")
                 .send(p);
