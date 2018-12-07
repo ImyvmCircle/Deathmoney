@@ -54,7 +54,8 @@ public class Essentials implements Listener {
         } else if (cmd.startsWith("/tpa ") && cmd.length() > 5) {
             String to = cmd.substring(5).trim();
             for (Player a : Bukkit.getOnlinePlayers()) {
-                if (!(a.equals(p)) && a.getDisplayName().equalsIgnoreCase(to)) {
+                String out = ChatColor.stripColor(a.getDisplayName());
+                if ((!(a.equals(p))) && out.equalsIgnoreCase(to)) {
                     e.setCancelled(true);
                     doTpa(p, a);
                     return;
@@ -67,7 +68,8 @@ public class Essentials implements Listener {
         } else if (cmd.startsWith("/tpahere ") && cmd.length() > 9) {
             String to = cmd.substring(9).trim();
             for (Player a : Bukkit.getOnlinePlayers()) {
-                if (!(a.equals(p)) && a.getDisplayName().equalsIgnoreCase(to)) {
+                String out = ChatColor.stripColor(a.getDisplayName());
+                if ((!(a.equals(p))) && out.equalsIgnoreCase(to)) {
                     e.setCancelled(true);
                     doTpahere(p, a);
                     return;
