@@ -245,6 +245,10 @@ public class Essentials implements Listener {
     private void doTpa(Player p, Player receiver) {
         User sent = ess.getUser(p);
         User receive = ess.getUser(receiver);
+        if (!(econ.has(p, plugin.cfg.tpfee))){
+            p.sendMessage("§4你没有足够的资金");
+            return;
+        }
         if (sent.getConfigUUID().equals(receive.getTeleportRequest()) &&
                 receive.hasOutstandingTeleportRequest() && !receive.isTpRequestHere()) {
             sent.sendMessage("§4你已经发送了" + receive.getDisplayName() + " §4一个传送请求");
@@ -270,6 +274,10 @@ public class Essentials implements Listener {
     private void doTpahere(Player p, Player receiver) {
         User sent = ess.getUser(p);
         User receive = ess.getUser(receiver);
+        if (!(econ.has(p, plugin.cfg.tpfee))){
+            p.sendMessage("§4你没有足够的资金");
+            return;
+        }
         if (sent.getConfigUUID().equals(receive.getTeleportRequest()) &&
                 receive.hasOutstandingTeleportRequest() && !receive.isTpRequestHere()) {
             sent.sendMessage("§4你已经发送了" + receive.getDisplayName() + " §4一个传送请求");
@@ -322,6 +330,10 @@ public class Essentials implements Listener {
                 LocationUtil.isBlockUnsafeForUser(iu, curLoc.getWorld(), curLoc.getBlockX(),
                         curLoc.getBlockY(), curLoc.getBlockZ())) {
             p.sendMessage("§c错误:§4传送的目标地点不安全");
+            return;
+        }
+        if (!(econ.has(p, plugin.cfg.sethomefee))){
+            p.sendMessage("§4你没有足够的资金");
             return;
         }
         iu.setHome(name, curLoc);
