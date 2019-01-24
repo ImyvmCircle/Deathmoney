@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import think.rpgitems.item.ItemManager;
 import think.rpgitems.item.RPGItem;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.imyvm.spigot.plugin.main.PluginMain.econ;
@@ -41,23 +42,26 @@ public class Takecurrency implements CommandExecutor {
                         ItemStack item = player.getInventory().getItemInMainHand();
                         RPGItem rpgItem = ItemManager.toRPGItem(item);
                         int max = rpgItem.getMaxDurability();
-                        int itemDurability = rpgItem.getDurability(item);
-                        int delta = max - itemDurability;
+                        Optional<Integer> itemDurability = rpgItem.getDurability(item);
+                        if (!(itemDurability.isPresent())){
+                            return false;
+                        }
+                        int delta = max - itemDurability.get();
                         if (max == -1 || delta == 0)
                             return false;
                         if (econ.has(player, value)) {
                             if (player.isOp()) {
-                                sender.sendMessage(ChatColor.GOLD + "氪金成功 " + String.valueOf(itemDurability) + "-->" +
+                                sender.sendMessage(ChatColor.GOLD + "氪金成功 " + String.valueOf(itemDurability.get()) + "-->" +
                                         String.valueOf(max));
                             } else {
                                 econ.withdrawPlayer(player, value);
                                 econ.depositPlayer(Bukkit.getOfflinePlayer(UUID.fromString(plugin.cfg.getmoneyuuid)), value);
-                                sender.sendMessage(ChatColor.GOLD + "氪金成功 " + String.valueOf(itemDurability) + "-->" +
+                                sender.sendMessage(ChatColor.GOLD + "氪金成功 " + String.valueOf(itemDurability.get()) + "-->" +
                                         String.valueOf(max));
                             }
                             String repair = args[2];
                             int durability = Integer.parseInt(repair);
-                            rpgItem.setDurability(item, Math.min(itemDurability + durability, max));
+                            rpgItem.setDurability(item, Math.min(itemDurability.get() + durability, max));
 
                         } else {
                             sender.sendMessage(ChatColor.RED + "没钱请不要氪金!");

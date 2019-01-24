@@ -38,15 +38,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../imyvm/plugins/10-17-2018/rpgitem-reloaded-3.6.490-mc1.13.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/../../imyvm/plugins/10-17-2018/spigot-1.13.2.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -59,6 +50,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../imyvm/plugins/10-17-2018/NyaaCore-v6.3.276-mc1.13.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../imyvm/plugins/10-17-2018/rpgitem-reloaded-3.6.569-mc1.13.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
