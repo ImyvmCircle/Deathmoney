@@ -6,6 +6,9 @@ import com.imyvm.spigot.plugin.main.Customjoinandleave.Commands;
 import com.imyvm.spigot.plugin.main.Customjoinandleave.JoinLeaveListenner;
 import com.imyvm.spigot.plugin.main.Hooks.Essentials;
 import com.imyvm.spigot.plugin.main.ImyvmCommand.ImyvmCommand;
+import com.imyvm.spigot.plugin.main.Tools.Freeze;
+import com.imyvm.spigot.plugin.main.Tools.freezeListenner;
+import com.imyvm.spigot.plugin.main.Tools.unFreeze;
 import com.imyvm.spigot.plugin.main.deathprotect.deathloss;
 import com.imyvm.spigot.plugin.main.lootprotect.LootProtectListener;
 import net.milkbowl.vault.economy.Economy;
@@ -27,6 +30,9 @@ public class PluginMain extends JavaPlugin {
     public ChatListener chatListener;
     public ImyvmCommand imyvmCommand;
     public Essentials essentialListenner;
+    public Freeze freeze;
+    public unFreeze unfreeze;
+    public freezeListenner freezeListenner;
 
 
     @Override
@@ -53,6 +59,11 @@ public class PluginMain extends JavaPlugin {
         imyvmCommand = new ImyvmCommand(this);
         getCommand("imc").setExecutor(imyvmCommand);
         essentialListenner = new Essentials(this);
+        freeze = new Freeze(this);
+        unfreeze = new unFreeze(this);
+        getCommand("freeze").setExecutor(freeze);
+        getCommand("unfreeze").setExecutor(unfreeze);
+        freezeListenner = new freezeListenner(this);
 
         RegisteredServiceProvider<Economy> economyP = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyP != null)

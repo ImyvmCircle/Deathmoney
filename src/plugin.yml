@@ -15,6 +15,12 @@ commands:
   imyvmcommand:
     description: design for imyvm policeman or policewoman
     aliases: [imc, imyvm]
+  freeze:
+    description: tools
+    aliases: [fr]
+  unfreeze:
+    description: tools
+    aliases: [unfr]
 permissions:
   custom.*:
     children:
